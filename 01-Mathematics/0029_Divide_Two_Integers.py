@@ -1,0 +1,34 @@
+class Solution(object):
+    def divide(self, dividend, divisor):
+        MAX = 2**31 -1
+        MIN = - (2**31)
+
+        if dividend == MIN and divisor == -1:
+            return MAX
+
+        negative = (dividend < 0) != (divisor <0)
+
+        dividend = abs(dividend)
+        divisor = abs(divisor)
+        quotient = 0
+
+        while dividend >= divisor:
+            temp = divisor
+            multiple = 1
+            while dividend >= (temp << 1):
+                temp <<= 1
+                multiple <<= 1
+
+            dividend -= temp
+            quotient += multiple
+
+        if negative :
+            quotient = -quotient
+        return quotient
+
+sol = Solution()
+
+print(sol.divide(10, 3))  # 3
+print(sol.divide(-7, 3)) # -2
+print(sol.divide(-10, -3)) # 3
+print(sol.divide(10, -3)) # -3
